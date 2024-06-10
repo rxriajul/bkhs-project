@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Section - Baypail Kinder Garten and High School</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        .section {
+            background-color: white;
+            margin: 10px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .post-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .post-form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        .post-form input[type="file"] {
+            margin-bottom: 10px;
+        }
+        .post-form button {
+            padding: 10px;
+            font-size: 1em;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .post-form button:hover {
+            background-color: #45a049;
+        }
+        .post {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        .post img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .post-content {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Group Section - Baypail Kinder Garten and High School</h1>
+    </header>
+    <nav>
+        <a href="/index.html">Home</a>
+        <a href="/aboutus.html">About Us</a>
+        <a href="/admission.html">Admissions</a>
+        <a href="/group.html">Group</a>
+        <a href="/resultpub.html">Result'</a>
+        <a href="/contact.html">Contact Us</a>
+    </nav>
+    <div class="container">
+        <div class="section">
+            <div class="section-title">Create a Post</div>
+            <form class="post-form" id="postForm">
+                <textarea id="postText" rows="4" placeholder="What's on your mind?"></textarea>
+                <input type="file" id="postImage">
+                <button type="submit">Post</button>
+            </form>
+        </div>
+        <div class="section">
+            <div class="section-title">Posts</div>
+            <div id="postsContainer">
+                <!-- Posts will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            const profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+        }
+
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const postText = document.getElementById('postText').value;
+            const postImage = document.getElementById('postImage').files[0];
+
+            const postContainer = document.createElement('div');
+            postContainer.className = 'post';
+
+            const postContent = document.createElement('div');
+            postContent.className = 'post-content';
+            postContent.textContent = postText;
+            postContainer.appendChild(postContent);
+
+            if (postImage) {
+                const postImageElement = document.createElement('img');
+                postImageElement.src = URL.createObjectURL(postImage);
+                postContainer.appendChild(postImageElement);
+            }
+
+            document.getElementById('postsContainer').appendChild(postContainer);
+
+            // Reset form
+            document.getElementById('postForm').reset();
+        });
+    </script>
+</body>
+</html>
